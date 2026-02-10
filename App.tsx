@@ -39,9 +39,10 @@ const App: React.FC = () => {
               alt="Ação MKT Offline Logo" 
               className="h-12 md:h-14 w-auto object-contain transition-transform duration-500 group-hover:scale-105"
               onError={(e) => {
-                // Fallback caso a imagem não seja encontrada durante o desenvolvimento
                 e.currentTarget.style.display = 'none';
-                e.currentTarget.parentElement!.innerHTML += '<span class="font-black text-xl">AÇÃO <span class="text-yellow-400">MKT</span></span>';
+                if (!e.currentTarget.parentElement?.querySelector('.fallback-text')) {
+                   e.currentTarget.parentElement!.innerHTML += '<span class="fallback-text font-black text-xl text-white">AÇÃO <span class="text-yellow-400">MKT</span></span>';
+                }
               }}
             />
           </div>
@@ -61,6 +62,14 @@ const App: React.FC = () => {
 
       {/* Hero Section */}
       <section className="relative pt-40 pb-20 md:pt-56 md:pb-40 overflow-hidden bg-texture">
+        <div className="absolute inset-0 z-0 opacity-[0.07] pointer-events-none">
+          <img 
+            src="https://images.unsplash.com/photo-1449156003053-c306a0483333?q=80&w=2070&auto=format&fit=crop" 
+            alt="City Background" 
+            className="w-full h-full object-cover"
+          />
+        </div>
+        
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-7xl font-extrabold mb-6 leading-tight animate-in fade-in slide-in-from-bottom-4 duration-1000">
@@ -88,7 +97,6 @@ const App: React.FC = () => {
           </div>
         </div>
 
-        {/* Decorative elements */}
         <div className="absolute top-1/2 left-0 w-64 h-64 bg-yellow-400/10 blur-[120px] rounded-full -translate-y-1/2 -translate-x-1/2"></div>
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-indigo-500/10 blur-[150px] rounded-full translate-y-1/2 translate-x-1/2"></div>
       </section>
@@ -130,15 +138,15 @@ const App: React.FC = () => {
             <div className="flex-1 relative group">
               <div className="relative z-10 rounded-2xl overflow-hidden border border-white/10 shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]">
                 <img 
-                  src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=800" 
-                  alt="Marketing Strategy Session" 
-                  className="w-full h-auto grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out transform group-hover:scale-110"
+                  src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1470&auto=format&fit=crop" 
+                  alt="Ação Estratégica" 
+                  className="w-full h-[500px] object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out transform group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60"></div>
                 <div className="absolute bottom-6 left-6 right-6 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
                   <div className="bg-white/10 backdrop-blur-md p-6 rounded-xl border border-white/10 shadow-xl">
-                    <p className="text-xl font-bold mb-2 text-white">Monitoramento Ativo</p>
-                    <p className="text-sm text-gray-300">Cada promotor é rastreado via GPS para garantir que sua marca chegue onde planejado.</p>
+                    <p className="text-xl font-bold mb-2 text-white">Equipe de Alto Impacto</p>
+                    <p className="text-sm text-gray-300">Treinamos nossos promotores para serem a voz da sua marca nas ruas.</p>
                   </div>
                 </div>
               </div>
@@ -221,28 +229,38 @@ const App: React.FC = () => {
                     <div className="h-8 bg-black flex items-center justify-center">
                       <div className="w-16 h-1 bg-[#222] rounded-full"></div>
                     </div>
-                    <div className="flex-1 p-4 flex flex-col gap-4">
-                      <div className="h-40 bg-indigo-900/30 rounded-2xl border border-indigo-500/30 flex items-center justify-center overflow-hidden group-hover/phone:bg-indigo-800/40 transition-colors relative">
-                         <MapIcon className="w-20 h-20 text-indigo-400 opacity-20" />
-                         <div className="absolute flex flex-col items-center">
-                            <div className="w-4 h-4 bg-yellow-400 rounded-full animate-ping group-hover/phone:animate-[ping_0.5s_infinite]"></div>
-                            <div className="w-4 h-4 bg-yellow-400 rounded-full absolute"></div>
+                    <div className="flex-1 p-4 flex flex-col gap-4 bg-zinc-900">
+                      <div className="h-40 bg-zinc-800 rounded-2xl border border-white/5 flex items-center justify-center overflow-hidden group-hover/phone:bg-zinc-700 transition-colors relative">
+                         <div className="absolute inset-0 opacity-40">
+                           <img 
+                             src="https://images.unsplash.com/photo-1569336415962-a4bd9f6dfc0f?q=80&w=1000&auto=format&fit=crop" 
+                             alt="Map view" 
+                             className="w-full h-full object-cover grayscale"
+                           />
                          </div>
+                         <div className="absolute flex flex-col items-center z-10">
+                            <div className="w-4 h-4 bg-yellow-400 rounded-full animate-ping group-hover/phone:animate-[ping_0.5s_infinite]"></div>
+                            <div className="w-4 h-4 bg-yellow-400 rounded-full absolute border-2 border-black"></div>
+                         </div>
+                         <div className="absolute bottom-2 left-2 bg-black/80 backdrop-blur-sm px-2 py-1 rounded text-[8px] font-bold text-yellow-400">TRACKING: ON</div>
                       </div>
                       <div className="h-4 w-2/3 bg-white/10 rounded-full group-hover/phone:bg-white/20 transition-colors"></div>
                       <div className="h-12 bg-white/5 rounded-xl border border-white/10 flex items-center px-4 justify-between group-hover/phone:border-yellow-400/30 transition-colors">
                          <span className="text-[10px] text-gray-400">Promotor: João Silva</span>
-                         <span className="text-[10px] text-green-400 flex items-center gap-1">
+                         <span className="text-[10px] text-green-400 flex items-center gap-1 font-bold">
                            <div className="w-1 h-1 bg-green-400 rounded-full animate-pulse"></div>
-                           Ativo
+                           ATIVO
                          </span>
                       </div>
                       <div className="h-12 bg-white/5 rounded-xl border border-white/10 flex items-center px-4 justify-between group-hover/phone:border-yellow-400/30 transition-colors">
-                         <span className="text-[10px] text-gray-400">Fotos enviadas: 12</span>
-                         <Camera className="w-3 h-3 text-gray-400" />
+                         <div className="flex flex-col">
+                            <span className="text-[10px] text-gray-200">Fotos enviadas</span>
+                            <span className="text-[8px] text-gray-500">Localização verificada</span>
+                         </div>
+                         <Camera className="w-4 h-4 text-yellow-400" />
                       </div>
                       <div className="mt-auto h-12 bg-yellow-400 rounded-xl flex items-center justify-center text-black font-bold text-xs hover:bg-yellow-300 transition-colors cursor-pointer shadow-lg shadow-yellow-400/10">
-                        FINALIZAR ROTA
+                        VER RELATÓRIO
                       </div>
                     </div>
                   </div>
@@ -266,33 +284,42 @@ const App: React.FC = () => {
       {/* Contact Section */}
       <section className="py-20 bg-[#0a0a0a]">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto bg-[#111] rounded-[3rem] p-10 md:p-20 text-center border border-white/5 relative overflow-hidden group/cta">
+          <div className="max-w-4xl mx-auto bg-[#111] rounded-[3rem] p-10 md:p-20 text-center border border-white/5 relative overflow-hidden group/cta shadow-2xl">
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-yellow-400 via-indigo-500 to-yellow-400 transition-all duration-1000 group-hover/cta:h-2"></div>
             <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-indigo-500/10 blur-[100px] rounded-full group-hover/cta:bg-indigo-500/20 transition-all"></div>
             
             <h2 className="text-3xl md:text-5xl font-extrabold mb-8 leading-tight">Pronto para dominar o <span className="text-yellow-400">OFFLINE?</span></h2>
             <p className="text-gray-400 text-lg mb-12 max-w-xl mx-auto">Entre em contato agora e vamos desenhar uma estratégia personalizada para o seu negócio.</p>
             
-            <div className="flex flex-col md:flex-row items-center justify-center gap-6">
+            <div className="flex flex-col md:flex-row items-center justify-center gap-8">
+              {/* Refined WhatsApp Button */}
               <button 
                 onClick={handleWhatsApp}
-                className="w-full md:w-auto bg-green-500 hover:bg-green-600 text-white px-8 py-5 rounded-2xl font-bold text-xl flex items-center justify-center gap-4 transition-all transform hover:scale-105 hover:shadow-2xl hover:shadow-green-500/30 active:scale-95 group hover-shine"
+                className="w-full md:w-auto bg-gradient-to-br from-green-500 to-emerald-600 hover:to-green-400 text-white px-8 py-6 rounded-3xl font-extrabold text-xl flex items-center justify-center gap-5 transition-all transform hover:scale-105 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(34,197,94,0.3)] active:scale-95 group hover-shine relative"
               >
-                <div className="bg-white/20 p-2 rounded-lg group-hover:scale-110 transition-transform">
-                  <MessageCircle className="w-8 h-8" />
+                <div className="bg-white/20 backdrop-blur-md p-3 rounded-2xl group-hover:scale-125 group-hover:rotate-12 transition-all duration-300 border border-white/20">
+                  <MessageCircle className="w-8 h-8 drop-shadow-md" />
                 </div>
-                {CONTACTS.whatsappDisplay}
+                <div className="flex flex-col items-start leading-tight">
+                  <span className="text-xs font-semibold opacity-80 uppercase tracking-widest mb-1">WhatsApp Oficial</span>
+                  <span className="text-2xl">{CONTACTS.whatsappDisplay}</span>
+                </div>
               </button>
+
+              {/* Refined Instagram Button */}
               <a 
                 href={CONTACTS.instagramUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="w-full md:w-auto bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] text-white px-8 py-5 rounded-2xl font-bold text-xl flex items-center justify-center gap-4 transition-all transform hover:scale-105 hover:shadow-2xl hover:shadow-pink-500/30 active:scale-95 group hover-shine"
+                className="w-full md:w-auto bg-gradient-to-tr from-[#f9ce34] via-[#ee2a7b] to-[#6228d7] text-white px-8 py-6 rounded-3xl font-extrabold text-xl flex items-center justify-center gap-5 transition-all transform hover:scale-105 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(238,42,123,0.3)] active:scale-95 group hover-shine relative"
               >
-                <div className="bg-white/20 p-2 rounded-lg group-hover:scale-110 transition-transform">
-                  <Instagram className="w-8 h-8" />
+                <div className="bg-white/20 backdrop-blur-md p-3 rounded-2xl group-hover:scale-125 group-hover:-rotate-12 transition-all duration-300 border border-white/20">
+                  <Instagram className="w-8 h-8 drop-shadow-md" />
                 </div>
-                @{CONTACTS.instagram}
+                <div className="flex flex-col items-start leading-tight">
+                  <span className="text-xs font-semibold opacity-80 uppercase tracking-widest mb-1">Instagram</span>
+                  <span className="text-2xl">@{CONTACTS.instagram}</span>
+                </div>
               </a>
             </div>
           </div>
@@ -309,7 +336,9 @@ const App: React.FC = () => {
               className="h-16 md:h-20 w-auto object-contain transition-transform duration-500 group-hover:scale-110"
               onError={(e) => {
                 e.currentTarget.style.display = 'none';
-                e.currentTarget.parentElement!.innerHTML += '<span class="font-black text-2xl">AÇÃO <span class="text-yellow-400">MKT</span> OFFLINE</span>';
+                if (!e.currentTarget.parentElement?.querySelector('.fallback-text')) {
+                  e.currentTarget.parentElement!.innerHTML += '<span class="fallback-text font-black text-2xl text-white">AÇÃO <span class="text-yellow-400">MKT</span> OFFLINE</span>';
+                }
               }}
             />
           </div>
